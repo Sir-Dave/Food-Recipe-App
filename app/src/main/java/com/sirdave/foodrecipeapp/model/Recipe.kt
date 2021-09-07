@@ -1,4 +1,4 @@
-package com.sirdave.foodrecipeapp.domain.model
+package com.sirdave.foodrecipeapp.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
