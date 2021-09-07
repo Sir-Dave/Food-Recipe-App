@@ -1,4 +1,4 @@
-package com.sirdave.foodrecipeapp.model
+package com.sirdave.foodrecipeapp.network.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -17,7 +17,7 @@ class RecipeNetworkEntity (
     var featuredImage: String? = null,
 
     @SerializedName("rating")
-    var rating: String? = null,
+    var rating: Int? = null,
 
     @SerializedName("source_url")
     var sourceUrl: String? = null,
