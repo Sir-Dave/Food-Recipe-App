@@ -1,6 +1,6 @@
 package com.sirdave.foodrecipeapp.network
 
-import com.sirdave.foodrecipeapp.network.model.RecipeNetworkEntity
+import com.sirdave.foodrecipeapp.network.model.RecipeDto
 import com.sirdave.foodrecipeapp.network.responses.RecipeSearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -20,5 +20,5 @@ interface RecipeService {
     suspend fun get(
         @Header("Authorization") token: String,
         @Query("id") id: Int
-    ): RecipeNetworkEntity
+    ): RecipeDto
 }
