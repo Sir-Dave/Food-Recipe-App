@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
-    //id 'kotlin-kapt'
+    id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
 
@@ -72,6 +72,10 @@ dependencies {
     //Hilt
     def hilt = "2.38.1"
     implementation "com.google.dagger:hilt-android:$hilt"
-    annotationProcessor "com.google.dagger:hilt-android-compiler:$hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt"
+
+    def hilt_lifecycle = "1.0.0"
+    kapt "androidx.hilt:hilt-compiler:$hilt_lifecycle"
+
 
 }

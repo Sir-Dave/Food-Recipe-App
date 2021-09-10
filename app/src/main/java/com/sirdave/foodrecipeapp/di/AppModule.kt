@@ -1,7 +1,7 @@
 package com.sirdave.foodrecipeapp.di
 
-import android.app.Application
-import com.sirdave.foodrecipeapp.BaseApplication
+import android.content.Context
+import com.sirdave.foodrecipeapp.presentation.BaseApplication
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideApplication(@ApplicationContext app: Application): BaseApplication{
+    fun provideApplication(@ApplicationContext app: Context): BaseApplication {
         return app as BaseApplication
     }
 
