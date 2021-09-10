@@ -2,22 +2,23 @@ package com.sirdave.foodrecipeapp
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.setContent
-import com.google.gson.GsonBuilder
-import com.sirdave.foodrecipeapp.network.RecipeService
 import com.sirdave.foodrecipeapp.ui.FoodRecipeAppTheme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val TAG = "AppDebug"
+    @Inject
+    lateinit var string: String
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -28,22 +29,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            val service = Retrofit.Builder()
-                .baseUrl("https://food2fork.ca/api/recipe/")
-                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
-                .build()
-                .create(RecipeService::class.java)
-
-            CoroutineScope(IO).launch{
-                val recipe = service.get(
-                    token = "Token 9c8b06d329136da358c2d00e76946b0111ce2c48",
-                    id = 583
-                )
-
-                Log.d("MainActivity", "Recipe is ${recipe.title}")
-
-
-            }
+            Log.d(TAG, "onCreate: $string")
         }
     }
 }
