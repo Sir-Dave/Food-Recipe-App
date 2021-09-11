@@ -1,7 +1,7 @@
 package com.sirdave.foodrecipeapp.network.model
 
 import com.sirdave.foodrecipeapp.domain.model.Recipe
-import com.sirdave.foodrecipeapp.util.DomainMapper
+import com.sirdave.foodrecipeapp.domain.util.DomainMapper
 
 class RecipeDtoMapper: DomainMapper<RecipeDto, Recipe> {
     override fun mapToDomainModel(model: RecipeDto): Recipe {

@@ -1,4 +1,4 @@
-package com.sirdave.foodrecipeapp.util
+package com.sirdave.foodrecipeapp.domain.util
 
 interface DomainMapper<T, DomainModel> {
 
