@@ -20,7 +20,8 @@ class RecipeListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        println("RecipeListFragment: $viewModel")
+        println("RecipeListFragment: ${viewModel.getToken()}")
+        println("RecipeListFragment: ${viewModel.getRepo()}")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

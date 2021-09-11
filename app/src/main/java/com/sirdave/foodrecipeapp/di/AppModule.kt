@@ -18,10 +18,4 @@ object AppModule {
     fun provideApplication(@ApplicationContext app: Context): BaseApplication {
         return app as BaseApplication
     }
-
-    @Singleton
-    @Provides
-    fun someRandomString(): String{
-        return "Some random string: æwådnlcøøwec'"
-    }
 }
