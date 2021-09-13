@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -40,30 +41,43 @@ class RecipeListFragment : Fragment() {
                     Surface(modifier = Modifier.fillMaxWidth(),
                         elevation = 8.dp,
                         color = MaterialTheme.colors.primary){
-                        Row(modifier = Modifier.fillMaxWidth()) {
-                            TextField(value = query, onValueChange = {newValue ->
-                                viewModel.onQueryChanged(newValue)},
-                                modifier = Modifier.fillMaxWidth(0.9f).padding(8.dp),
-                                label = {
-                                    Text(text = "Search")
-                                },
-                                keyboardOptions = KeyboardOptions(
-                                    keyboardType = KeyboardType.Text,
-                                    imeAction = ImeAction.Search
-                                ),
-                                leadingIcon = {
-                                    Icon(Icons.Filled.Search, contentDescription = "")
-                                },
-                                keyboardActions = KeyboardActions(
-                                    onSearch = {
-                                        viewModel.newSearch(query)
-                                        focusManager.clearFocus()
+                        Column {
+                            Row(modifier = Modifier.fillMaxWidth()) {
+                                TextField(value = query, onValueChange = {newValue ->
+                                    viewModel.onQueryChanged(newValue)},
+                                    modifier = Modifier.fillMaxWidth(0.9f).padding(8.dp),
+                                    label = {
+                                        Text(text = "Search")
                                     },
-                                ),
-                                textStyle = TextStyle(color = MaterialTheme.colors.onSurface,
-                                    background = MaterialTheme.colors.surface
-                                ),
-                            )
+                                    keyboardOptions = KeyboardOptions(
+                                        keyboardType = KeyboardType.Text,
+                                        imeAction = ImeAction.Search
+                                    ),
+                                    leadingIcon = {
+                                        Icon(Icons.Filled.Search, contentDescription = "")
+                                    },
+                                    keyboardActions = KeyboardActions(
+                                        onSearch = {
+                                            viewModel.newSearch(query)
+                                            focusManager.clearFocus()
+                                        },
+                                    ),
+                                    textStyle = TextStyle(color = MaterialTheme.colors.onSurface,
+                                        background = MaterialTheme.colors.surface
+                                    ),
+                                )
+                            }
+
+                            LazyRow(modifier = Modifier.fillMaxWidth()){
+                                for (category in getAllFoodCategories()){
+                                    /**Text(text = category.value,
+                                        style = MaterialTheme.typography.body2,
+                                        color = MaterialTheme.colors.secondary,
+                                        modifier = Modifier.padding(8.dp)
+                                    )*/
+                                }
+
+                            }
                         }
                     }
                     LazyColumn{
