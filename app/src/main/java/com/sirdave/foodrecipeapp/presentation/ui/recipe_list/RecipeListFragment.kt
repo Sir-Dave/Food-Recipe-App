@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,11 +13,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
@@ -30,6 +33,7 @@ import androidx.fragment.app.viewModels
 import com.sirdave.foodrecipeapp.presentation.components.FoodCategoryChip
 import com.sirdave.foodrecipeapp.util.RecipeCard
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RecipeListFragment : Fragment() {
@@ -43,6 +47,7 @@ class RecipeListFragment : Fragment() {
                 val query = viewModel.query.value
                 val focusManager = LocalFocusManager.current
                 val selectedCategory = viewModel.selectedCategory.value
+                val scope = rememberCoroutineScope()
                 Column{
                     Surface(modifier = Modifier.fillMaxWidth(),
                         elevation = 8.dp,
@@ -74,14 +79,21 @@ class RecipeListFragment : Fragment() {
                                 )
                             }
 
+                            val scrollState = rememberScrollState()
+
                             LazyRow(modifier = Modifier.fillMaxWidth()
                                 .padding(start = 8.dp, bottom = 8.dp)
+                                .horizontalScroll(scrollState)
                             ){
+                                scope.launch {
+                                    scrollState.scrollTo(viewModel.categoryScrollPosition.toInt())
+                                }
                                 items(getAllFoodCategories()) { category ->
                                     FoodCategoryChip(category = category.value,
                                         isSelected = selectedCategory == category,
                                         onSelectedCategoryChanged = { s->
                                             viewModel.onSelectedCategoryChanged(s)
+                                            viewModel.onChangeCategoryScrollPosition(scrollState.value)
                                         },
                                         onExecuteSearch = viewModel::newSearch)
                                 }
