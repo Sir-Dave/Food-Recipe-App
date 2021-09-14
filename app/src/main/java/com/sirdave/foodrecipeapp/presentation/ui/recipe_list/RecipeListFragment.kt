@@ -42,6 +42,7 @@ class RecipeListFragment : Fragment() {
                 val recipes = viewModel.recipes.value
                 val query = viewModel.query.value
                 val focusManager = LocalFocusManager.current
+                val selectedCategory = viewModel.selectedCategory.value
                 Column{
                     Surface(modifier = Modifier.fillMaxWidth(),
                         elevation = 8.dp,
@@ -63,7 +64,7 @@ class RecipeListFragment : Fragment() {
                                     },
                                     keyboardActions = KeyboardActions(
                                         onSearch = {
-                                            viewModel.newSearch(query)
+                                            viewModel.newSearch()
                                             focusManager.clearFocus()
                                         },
                                     ),
@@ -73,12 +74,16 @@ class RecipeListFragment : Fragment() {
                                 )
                             }
 
-                            LazyRow(modifier = Modifier.fillMaxWidth()){
-                                items(getAllFoodCategories()) {
-                                    FoodCategoryChip(category = it.value, onExecuteSearch = { s ->
-                                        viewModel.onQueryChanged(s)
-                                        viewModel.newSearch(s)
-                                    } )
+                            LazyRow(modifier = Modifier.fillMaxWidth()
+                                .padding(start = 8.dp, bottom = 8.dp)
+                            ){
+                                items(getAllFoodCategories()) { category ->
+                                    FoodCategoryChip(category = category.value,
+                                        isSelected = selectedCategory == category,
+                                        onSelectedCategoryChanged = { s->
+                                            viewModel.onSelectedCategoryChanged(s)
+                                        },
+                                        onExecuteSearch = viewModel::newSearch)
                                 }
                             }
                         }
