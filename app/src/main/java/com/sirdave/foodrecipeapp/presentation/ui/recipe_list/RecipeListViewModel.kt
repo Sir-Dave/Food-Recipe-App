@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.sirdave.foodrecipeapp.domain.model.Recipe
 import com.sirdave.foodrecipeapp.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Named
@@ -19,8 +20,10 @@ class RecipeListViewModel @Inject constructor(
 
     val recipes: MutableState<List<Recipe>> = mutableStateOf(listOf())
     val query = mutableStateOf("")
+    val loading = mutableStateOf(false)
     val selectedCategory: MutableState<FoodCategory?> = mutableStateOf(null)
     var categoryScrollPosition: Int = 0
+
 
     init {
         newSearch()
@@ -28,13 +31,30 @@ class RecipeListViewModel @Inject constructor(
 
     fun newSearch(){
         viewModelScope.launch {
+            loading.value = true
+
+            resetSearchState()
+
+            delay(2000)
+
             val results = repository.search(
                 token = token,
                 page = 1,
                 query = query.value
             )
             recipes.value = results
+            loading.value = false
         }
+    }
+
+    private fun resetSearchState(){
+        recipes.value = listOf()
+        if (selectedCategory.value?.value != query.value)
+            clearSelectedCategory()
+    }
+
+    private fun clearSelectedCategory(){
+        selectedCategory.value = null
     }
 
     fun onQueryChanged(query: String){
