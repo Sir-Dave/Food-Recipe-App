@@ -35,7 +35,7 @@ class RecipeListViewModel @Inject constructor(
 
             resetSearchState()
 
-            delay(2000)
+            delay(3000)
 
             val results = repository.search(
                 token = token,
