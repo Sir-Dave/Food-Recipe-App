@@ -11,16 +11,18 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.sirdave.foodrecipeapp.presentation.ui.recipe_list.FoodCategory
 import com.sirdave.foodrecipeapp.presentation.ui.recipe_list.getAllFoodCategories
 import kotlinx.coroutines.launch
@@ -34,7 +36,8 @@ fun SearchAppBar(
     scrollPosition: Int,
     selectedCategory: FoodCategory?,
     onSelectedCategoryChanged: (String) -> Unit,
-    onChangeCategoryScrollPosition: (Int) -> Unit){
+    onChangeCategoryScrollPosition: (Int) -> Unit,
+    onToggleTheme: () -> Unit){
 
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
@@ -43,7 +46,7 @@ fun SearchAppBar(
 
     Surface(modifier = Modifier.fillMaxWidth(),
         elevation = 8.dp,
-        color = Color.White){
+        color = MaterialTheme.colors.surface){
         Column {
             Row(modifier = Modifier.fillMaxWidth()) {
                 TextField(value = query, onValueChange = {newValue ->
@@ -69,6 +72,21 @@ fun SearchAppBar(
                         background = MaterialTheme.colors.surface
                     ),
                 )
+
+                ConstraintLayout(
+                    modifier = Modifier.align(Alignment.CenterVertically)) {
+                    val menu = createRef()
+                    IconButton(onClick = onToggleTheme,
+                        modifier = Modifier.constrainAs(menu){
+                            end.linkTo(parent.end)
+                            bottom.linkTo(parent.bottom)
+                            top.linkTo(parent.top)
+                        }
+                    ) {
+                        Icon(Icons.Filled.MoreVert, contentDescription = null)
+                    }
+
+                }
             }
 
             LazyRow(modifier = Modifier.fillMaxWidth()

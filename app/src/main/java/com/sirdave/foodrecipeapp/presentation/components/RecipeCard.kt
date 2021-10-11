@@ -1,4 +1,4 @@
-package com.sirdave.foodrecipeapp.util
+package com.sirdave.foodrecipeapp.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -9,13 +9,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.sirdave.foodrecipeapp.R
 import com.sirdave.foodrecipeapp.domain.model.Recipe
+import com.sirdave.foodrecipeapp.util.DEFAULT_RECIPE_IMAGE
+import com.sirdave.foodrecipeapp.util.loadPicture
 
 @Composable
 fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
