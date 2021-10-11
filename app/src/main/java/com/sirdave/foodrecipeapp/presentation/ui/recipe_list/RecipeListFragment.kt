@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
@@ -43,7 +44,8 @@ class RecipeListFragment : Fragment() {
                     val query = viewModel.query.value
                     val selectedCategory = viewModel.selectedCategory.value
                     val loading = viewModel.loading.value
-                    Column{
+                    
+                    Scaffold(topBar = {
                         SearchAppBar(
                             query = query,
                             onQueryChanged = viewModel::onQueryChanged,
@@ -54,7 +56,7 @@ class RecipeListFragment : Fragment() {
                             onChangeCategoryScrollPosition = viewModel::onChangeCategoryScrollPosition,
                             onToggleTheme = {application.toggleTheme()}
                         )
-
+                    }) {
                         Box(
                             modifier = Modifier.fillMaxSize()
                                 .background(color = MaterialTheme.colors.background)
