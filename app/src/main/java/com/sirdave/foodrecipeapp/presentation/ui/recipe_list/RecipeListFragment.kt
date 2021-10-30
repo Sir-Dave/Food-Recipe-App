@@ -51,6 +51,7 @@ class RecipeListFragment : Fragment() {
                     val recipes = viewModel.recipes.value
                     val query = viewModel.query.value
                     val selectedCategory = viewModel.selectedCategory.value
+                     val page = viewModel.page.value
                     val loading = viewModel.loading.value
                     val scaffoldState = rememberScaffoldState()
                     
@@ -89,13 +90,17 @@ class RecipeListFragment : Fragment() {
                             modifier = Modifier.fillMaxSize()
                                 .background(color = MaterialTheme.colors.background)
                         ){
-                            if (loading){
+                            if (loading && recipes.isEmpty()){
                                 LoadingRecipeListShimmer(imageHeight = 260.dp)
                             }
                             else{
                                 LazyColumn{
                                     itemsIndexed(items = recipes){
-                                            _, recipe ->
+                                            index, recipe ->
+                                        viewModel.onChangeRecipeScrollPosition(index)
+                                        if ((index + 1) >= page * PAGE_SIZE && !loading){
+                                            viewModel.nextPage()
+                                        }
                                         RecipeCard(recipe = recipe, onClick = {})
                                     }
                                 }
