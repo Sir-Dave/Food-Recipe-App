@@ -69,9 +69,6 @@ fun SearchAppBar(
                         },
                     ),
                     textStyle = MaterialTheme.typography.button
-                //TextStyle(color = MaterialTheme.colors.onSurface,
-                    //                        background = MaterialTheme.colors.surface
-                    //                    ),
                 )
 
                 ConstraintLayout(

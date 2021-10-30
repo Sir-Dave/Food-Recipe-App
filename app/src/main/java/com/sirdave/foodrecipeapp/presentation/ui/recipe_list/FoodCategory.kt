@@ -3,15 +3,15 @@ package com.sirdave.foodrecipeapp.presentation.ui.recipe_list
 import com.sirdave.foodrecipeapp.presentation.ui.recipe_list.FoodCategory.*
 
 enum class FoodCategory(val value: String) {
-    CHICKEN("chicken"),
-    BEEF("beef"),
-    SOUP("soup"),
-    DESSERT("dessert"),
-    VEGETARIAN("vegetarian"),
-    MILK("milk"),
-    VEGAN("vegan"),
-    PIZZA("pizza"),
-    DONUT("donut")
+    CHICKEN("Chicken"),
+    BEEF("Beef"),
+    SOUP("Soup"),
+    DESSERT("Dessert"),
+    VEGETARIAN("Vegetarian"),
+    MILK("Milk"),
+    VEGAN("Vegan"),
+    PIZZA("Pizza"),
+    DONUT("Donut")
 }
 
 fun getAllFoodCategories(): List<FoodCategory>{
