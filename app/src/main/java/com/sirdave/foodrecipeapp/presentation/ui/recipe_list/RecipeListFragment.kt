@@ -25,6 +25,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.sirdave.foodrecipeapp.presentation.BaseApplication
 import com.sirdave.foodrecipeapp.presentation.components.*
 import com.sirdave.foodrecipeapp.ui.FoodRecipeAppTheme
@@ -86,33 +87,18 @@ class RecipeListFragment : Fragment() {
                         }
 
                         ) {
-                        Box(
-                            modifier = Modifier.fillMaxSize()
-                                .background(color = MaterialTheme.colors.background)
-                        ){
-                            if (loading && recipes.isEmpty()){
-                                LoadingRecipeListShimmer(imageHeight = 260.dp)
-                            }
-                            else{
-                                LazyColumn{
-                                    itemsIndexed(items = recipes){
-                                            index, recipe ->
-                                        viewModel.onChangeRecipeScrollPosition(index)
-                                        if ((index + 1) >= page * PAGE_SIZE && !loading){
-                                            viewModel.onTriggerEvent(RecipeListEvent.NextPageEvent)
-                                        }
-                                        RecipeCard(recipe = recipe, onClick = {})
-                                    }
-                                }
-                            }
-                            CircularIndeterminateProgressBar(isDisplayed = loading)
-                            DefaultSnackBar(
-                                snackbarHostState = scaffoldState.snackbarHostState,
-                                onDismiss = {
-                                    scaffoldState.snackbarHostState.currentSnackbarData?.dismiss() },
-                                modifier = Modifier.align(Alignment.BottomCenter)
-                            )
-                        }
+                        RecipeList(
+                            loading = loading,
+                            recipes = recipes,
+                            onChangeRecipeScrollPosition = viewModel::onChangeRecipeScrollPosition,
+                            page = page,
+                            onNextPage = {
+                                viewModel.onTriggerEvent(RecipeListEvent.NextPageEvent)
+                                             },
+                            scaffoldState = scaffoldState,
+                            snackbarController = snackbarController,
+                            navController = findNavController()
+                        )
                     }
                 }
             }
