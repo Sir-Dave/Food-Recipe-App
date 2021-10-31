@@ -33,46 +33,61 @@ class RecipeListViewModel @Inject constructor(
     var recipeListSCrollPosition = 0
 
     init {
-        newSearch()
+        onTriggerEvent(RecipeListEvent.NewSearchEvent)
     }
 
-    fun newSearch(){
+    fun onTriggerEvent(event: RecipeListEvent){
         viewModelScope.launch {
-            loading.value = true
+            try {
+                when (event){
+                    is RecipeListEvent.NewSearchEvent ->{
+                        newSearch()
+                    }
 
-            resetSearchState()
-
-            delay(3000)
-
-            val results = repository.search(
-                token = token,
-                page = 1,
-                query = query.value
-            )
-            recipes.value = results
-            loading.value = false
+                    is RecipeListEvent.NextPageEvent ->{
+                        nextPage()
+                    }
+                }
+            }
+            catch (e: Exception){
+                Log.d(TAG, "Exception: $e ==== ${e.cause}")
+            }
         }
     }
 
-    fun nextPage(){
-        viewModelScope.launch {
-            if ((recipeListSCrollPosition + 1) >= (page.value * PAGE_SIZE)){
-                loading.value = true
-                incrementPage()
+    private suspend fun newSearch(){
+        loading.value = true
 
-                Log.d(TAG, "next page ${page.value}")
-                delay(1000)
+        resetSearchState()
 
-                if (page.value > 1){
-                    val results = repository.search(
-                        token = token,
-                        page = page.value,
-                        query = query.value
-                    )
-                    appendRecipes(results)
-                }
-                loading.value = false
+        delay(3000)
+
+        val results = repository.search(
+            token = token,
+            page = 1,
+            query = query.value
+        )
+        recipes.value = results
+        loading.value = false
+    }
+
+    private suspend fun nextPage(){
+        if ((recipeListSCrollPosition + 1) >= (page.value * PAGE_SIZE)){
+            loading.value = true
+            incrementPage()
+
+            Log.d(TAG, "next page ${page.value}")
+            delay(1000)
+
+            if (page.value > 1){
+                val results = repository.search(
+                    token = token,
+                    page = page.value,
+                    query = query.value
+                )
+                appendRecipes(results)
             }
+            loading.value = false
         }
     }
 
