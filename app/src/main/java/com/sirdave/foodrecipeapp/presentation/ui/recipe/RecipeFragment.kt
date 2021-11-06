@@ -55,9 +55,13 @@ class RecipeFragment: Fragment() {
             setContent {
                 val loading = viewModel.loading.value
                 val recipe = viewModel.recipe.value
+                val scaffoldState = rememberScaffoldState()
 
-                var scaffoldState = rememberScaffoldState()
-                FoodRecipeAppTheme(darkTheme = application.isDark.value) {
+                FoodRecipeAppTheme(
+                    darkTheme = application.isDark.value,
+                    displayProgressBar = loading,
+                    scaffoldState = scaffoldState
+                ) {
                     Scaffold(
                         scaffoldState = scaffoldState,
                         snackbarHost = {
