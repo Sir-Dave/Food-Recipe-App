@@ -46,7 +46,7 @@ fun SearchAppBar(
 
     Surface(modifier = Modifier.fillMaxWidth(),
         elevation = 8.dp,
-        color = MaterialTheme.colors.surface){
+        color = MaterialTheme.colors.secondary){
         Column {
             Row(modifier = Modifier.fillMaxWidth()) {
                 TextField(value = query, onValueChange = {newValue ->
@@ -60,7 +60,7 @@ fun SearchAppBar(
                         imeAction = ImeAction.Search
                     ),
                     leadingIcon = {
-                        Icon(Icons.Filled.Search, contentDescription = "")
+                        Icon(Icons.Filled.Search, contentDescription = "Search Icon")
                     },
                     keyboardActions = KeyboardActions(
                         onSearch = {
@@ -68,7 +68,8 @@ fun SearchAppBar(
                             focusManager.clearFocus()
                         },
                     ),
-                    textStyle = MaterialTheme.typography.button
+                    textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
+                    colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface),
                 )
 
                 ConstraintLayout(

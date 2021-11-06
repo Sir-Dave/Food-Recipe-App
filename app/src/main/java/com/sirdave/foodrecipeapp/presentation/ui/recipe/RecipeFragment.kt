@@ -22,9 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.sirdave.foodrecipeapp.presentation.BaseApplication
-import com.sirdave.foodrecipeapp.presentation.components.CircularIndeterminateProgressBar
-import com.sirdave.foodrecipeapp.presentation.components.DefaultSnackBar
-import com.sirdave.foodrecipeapp.presentation.components.RecipeView
+import com.sirdave.foodrecipeapp.presentation.components.*
 import com.sirdave.foodrecipeapp.presentation.ui.recipe.RecipeEvent.GetRecipeEvent
 import com.sirdave.foodrecipeapp.ui.FoodRecipeAppTheme
 import com.sirdave.foodrecipeapp.util.SnackbarController
@@ -68,7 +66,7 @@ class RecipeFragment: Fragment() {
                     ){
                         Box(modifier = Modifier.fillMaxSize()){
                             if (loading && recipe == null){
-                                Text(text = "Loading...")
+                                LoadingRecipeShimmer(imageHeight = IMAGE_HEIGHT.dp)
                             }
                             else{
                                 recipe?.let {
