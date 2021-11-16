@@ -23,9 +23,17 @@ To build this project, you require:
 - Compose 1.0.1
 
 #### Screenshots
+- Loading Shimmer Animation
 <img src="screenshots/screen_1.png" width="30%" vspace="10" hspace="10">
+
+- Recipe List view
 <img src="screenshots/screen_2.png" width="30%" vspace="10" hspace="10">
+
+- Recipe Detail view
 <img src="screenshots/screen_3.png" width="30%" vspace="10" hspace="10">
+
+- Recipe List view (Dark mode)
 <img src="screenshots/screen_4.png" width="30%" vspace="10" hspace="10">
+
+- Recipe Detail view (Dark mode)
 <img src="screenshots/screen_5.png" width="30%" vspace="10" hspace="10">
-<img src="screenshots/screen_6.png" width="30%" vspace="10" hspace="10">
