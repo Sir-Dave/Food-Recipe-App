@@ -1,5 +1,5 @@
 # Food Recipe App
-Hey there!
+Hey there! 👋🏼👋🏼👋🏼
 
 This repository displays various food recipes and ingredients used to make them.
 It was written entirely in Kotlin using Jetpack Compose.
@@ -11,8 +11,7 @@ It was written entirely in Kotlin using Jetpack Compose.
 - Dependency Injection using Hilt
 - Image loading and caching using Glide 
 - API requests to server via Retrofit
-- Animations
-- Custom views
+- Animations and custom views
 
 #### Prerequisite
 To build this project, you require:
